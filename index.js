@@ -11,10 +11,10 @@ var main = async () => {
         
         let dcmInfo = await parseDcm.getDcmInfo(process.argv[2]);
         if (await dbsession.insertPatient(dcmInfo)
-            && await dbsession.insertExam(dcmInfo)
-            && await dbsession.insertSeries(dcmInfo)
-            && await dbsession.insertImage(dcmInfo)) {
-                console.log("Register Success: [" + process.argv[2] + "]");
+                && await dbsession.insertExam(dcmInfo)
+                && await dbsession.insertSeries(dcmInfo)
+                && await dbsession.insertImage(dcmInfo)) {
+            console.log("Register Success: [" + process.argv[2] + "]");
         }
 
     } catch (e) {
