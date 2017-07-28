@@ -16,7 +16,7 @@ var main = async () => {
                 && await dbsession.insertImage(dcmInfo)) {
             console.log("Register Success: [" + process.argv[2] + "]");
         }
-
+        dbsession.close();
     } catch (e) {
         console.log('@@@ ERROR main function' + e);
     }

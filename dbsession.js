@@ -9,6 +9,10 @@ var Exam = null;
 var Series = null;
 var Image = null;
 
+var close = () => {
+    sequelize.close();
+}
+
 var init = () => {
     if (!sequelize) {
         return false;
@@ -113,6 +117,7 @@ var insertImage = async (dcmInfo) => {
 
 module.exports = {
     init: init,
+    close: close,
     insertPatient: insertPatient,
     insertExam: insertExam,
     insertSeries: insertSeries,
