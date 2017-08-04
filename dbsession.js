@@ -1,9 +1,10 @@
+const env = require('./env');
 const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize('acrux_db', 'dev', 'password', {
-                    host: 'localhost',
-                    dialect: 'mysql',
+const sequelize = new Sequelize(env.db_name, env.db_user, env.db_passwd, {
+                    host: env.db_host,
+                    dialect: env.db_diarect,
 });
+                
 var Patient = null;
 var Exam = null;
 var Series = null;
