@@ -1,5 +1,5 @@
 const path = require('path');
-var fs = require('fs');
+var fileUtils = require('./fileutils');
 var dicomParser = require('dicom-parser');
 
 // ex, dt = '19951125'
@@ -24,17 +24,6 @@ var makeDateForMySQL = (dt, tm) => {
             : addHyphensToDate(dt) + " " + addColonToTime(tm);
 }
 
-var loadFile = (filelname) => {
-    return new Promise((resolve, reject) => {
-        fs.readFile(filelname, (err, data) => {
-            if (err) {
-                return reject(err);
-            }
-            return resolve(data);
-        });
-    });
-};
-
 var getJsonFullPath = (filename) => {
     let onlyFileName = path.basename(filename);
     let onlyPath = path.dirname(filename);
@@ -45,7 +34,7 @@ module.exports.getJsonPath = getJsonFullPath;
 
 module.exports.getDcmInfo = async (filename) => {
     try {
-        let data = await loadFile(filename);
+        let data = await fileUtils.loadFile(filename);
 
         let byteArray = new Uint8Array(data);
         let dataSet = dicomParser.parseDicom(byteArray);
@@ -90,7 +79,8 @@ module.exports.getDcmInfo = async (filename) => {
             im_window: dataSet.floatString('x00281050'),
             im_level: dataSet.floatString('x00281051'),
             //im_path: "/Users/cliff1215/Desktop/Projects/Dicom_Images/json"
-            im_path: getJsonFullPath(filename)
+            //im_path: getJsonFullPath(filename)
+            im_path: ""
         };
     } catch (e) {
         console.log('@@@ ERROR getParseDcm - ' - e);    

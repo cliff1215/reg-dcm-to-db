@@ -3,6 +3,7 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize(env.db_name, env.db_user, env.db_passwd, {
                     host: env.db_host,
                     dialect: env.db_diarect,
+                    logging: false
 });
                 
 var Patient = null;
