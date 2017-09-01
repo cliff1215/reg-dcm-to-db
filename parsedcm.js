@@ -39,6 +39,10 @@ module.exports.getDcmInfo = async (filename) => {
         let byteArray = new Uint8Array(data);
         let dataSet = dicomParser.parseDicom(byteArray);
 
+        let bitAlloc = dataSet.uint16('x00280100');
+        if (bitAlloc !== 16)
+            return null;
+
         let exDate = makeDateForMySQL(dataSet.string('x00080020'), 
                                         dataSet.string('x00080030'));
         let seDate = makeDateForMySQL(dataSet.string('x00080021'), 

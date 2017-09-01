@@ -57,8 +57,13 @@ var main = async () => {
             if (!elFName) process.exit(1); //continue;
             let jsonFName = await createJsonFile(elFName);
             if (!jsonFName) process.exit(2); //continue;
-
-            let dcmInfo = await parseDcm.getDcmInfo(elFName);  
+            
+            let dcmInfo = await parseDcm.getDcmInfo(elFName);
+            if (!dcmInfo) {
+                fileUtils.delFile(elFName);
+                fileUtils.delFile(jsonFName);
+                continue;
+            } 
             dcmInfo.im_path = jsonFName;
    
             if (await dbsession.insertPatient(dcmInfo)
